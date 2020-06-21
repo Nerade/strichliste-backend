@@ -59,6 +59,11 @@ class User {
      */
     private $transactions;
 
+    /**
+     * @ORM\Column(type="string", length=8, nullable=true)
+     */
+    private $tag_id;
+
     function __construct() {
         $this->transactions = new ArrayCollection();
     }
@@ -129,6 +134,22 @@ class User {
 
     function setUpdated(?\DateTimeInterface $updated): self {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getTagId(): ?string
+    {
+        if($this->tag_id){
+          $len = strlen($this->tag_id);
+          return $this->tag_id[0] . str_repeat('*',$len-2) . substr($this->tag_id,-1);
+        }
+        return null;
+    }
+
+    public function setTagId(?string $tag_id): self
+    {
+        $this->tag_id = $tag_id;
 
         return $this;
     }

@@ -25,7 +25,8 @@ class UserSerializer {
             'isActive' => $this->userService->isActive($user),
             'isDisabled' => $user->isDisabled(),
             'created' => $user->getCreated()->format('Y-m-d H:i:s'),
-            'updated' => $user->getUpdated() ? $user->getUpdated()->format('Y-m-d H:i:s') : null
+            'updated' => $user->getUpdated() ? $user->getUpdated()->format('Y-m-d H:i:s') : null,
+            'tagId' => $user->getTagId()
         ];
     }
 }

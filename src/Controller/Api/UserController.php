@@ -90,6 +90,11 @@ class UserController extends AbstractController {
             $user->setEmail(trim($email));
         }
 
+        $tagId = $request->request->get('tagId');
+        if ($tagId) {
+          $user->setTagId($tagId);
+        }
+
         $entityManager->persist($user);
         $entityManager->flush();
 
@@ -138,6 +143,21 @@ class UserController extends AbstractController {
     }
 
     /**
+     * @Route("/tag/{tagId}", methods="GET")
+     */
+    function userByTag($tagId, EntityManagerInterface $entityManager) {
+        $user = $entityManager->getRepository(User::class)->findByTagId($tagId);
+
+        if (!$user) {
+            throw new UserNotFoundException($tagId);
+        }
+
+        return $this->json([
+            'user' => $this->userSerializer->serialize($user),
+        ]);
+    }
+
+    /**
      * @Route("/{userId}", methods="POST")
      */
     function updateUser($userId, Request $request, EntityManagerInterface $entityManager) {
@@ -175,6 +195,12 @@ class UserController extends AbstractController {
         $isDisabled = $request->request->get('isDisabled');
         if ($isDisabled !== null) {
             $user->setDisabled($isDisabled);
+        }
+
+
+        $tagId = $request->request->get('tagId');
+        if ($tagId) {
+          $user->setTagId($tagId);
         }
 
         $entityManager->persist($user);

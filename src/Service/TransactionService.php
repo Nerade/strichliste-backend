@@ -69,13 +69,13 @@ class TransactionService {
      * @throws ParameterNotFoundException
      * @return Transaction
      */
-    function doTransaction(int $userId, ?int $amount, string $comment = null, ?int $quantity = 1, ?int $articleId = null, ?int $recipientId = null): Transaction {
+    function doTransaction(int $userId, ?int $amount, string $comment = null, ?int $quantity = 1, ?int $articleId = null, ?int $recipientId = null, $paidByTag = false): Transaction {
 
         if (($recipientId || $articleId) && $amount > 0) {
             throw new TransactionInvalidException('Amount can\'t be positive when sending money or buying an article');
         }
 
-        return $this->entityManager->transactional(function () use ($userId, $amount, $comment, $quantity, $articleId, $recipientId) {
+        return $this->entityManager->transactional(function () use ($userId, $amount, $comment, $quantity, $articleId, $recipientId, $paidByTag) {
             $transaction = new Transaction();
 
             $user = $this->entityManager->getRepository(User::class)->find($userId, LockMode::PESSIMISTIC_WRITE);
@@ -85,6 +85,7 @@ class TransactionService {
 
             $transaction->setUser($user);
             $transaction->setComment($comment);
+            $transaction->setPaidByTag($paidByTag);
 
             $article = null;
             if ($articleId) {

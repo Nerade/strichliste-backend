@@ -55,12 +55,13 @@ class TransactionController extends AbstractController {
         $comment = $request->request->get('comment');
         $recipientId = $request->request->get('recipientId');
         $articleId = $request->request->get('articleId');
+        $paidByTag = $request->request->get('paidByTag');
 
         if (mb_strlen($comment) > 255) {
             throw new ParameterInvalidException('comment');
         }
 
-        $transaction = $transactionService->doTransaction($userId, $amount, $comment, $quantity, $articleId, $recipientId);
+        $transaction = $transactionService->doTransaction($userId, $amount, $comment, $quantity, $articleId, $recipientId, $paidByTag);
 
         return $this->json([
             'transaction' => $this->transactionSerializer->serialize($transaction),

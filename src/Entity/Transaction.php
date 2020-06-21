@@ -71,6 +71,11 @@ class Transaction {
      */
     private $created;
 
+    /**
+     * @ORM\Column(type="boolean",options={"default":false})
+     */
+    private $paid_by_tag;
+
     function getId(): ?int {
         return $this->id;
     }
@@ -165,6 +170,17 @@ class Transaction {
         return $this;
     }
 
+    public function getPaidByTag(): ?bool
+    {
+        return $this->paid_by_tag;
+    }
+
+    public function setPaidByTag(bool $paid_by_tag): self
+    {
+        $this->paid_by_tag = $paid_by_tag;
+
+        return $this;
+    }
     /**
      * @ORM\PrePersist()
      * @param LifecycleEventArgs $event

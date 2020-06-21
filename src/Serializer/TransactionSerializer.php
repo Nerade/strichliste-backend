@@ -42,7 +42,8 @@ class TransactionSerializer {
             'amount' => $transaction->getAmount(),
             'isDeleted' => $transaction->isDeleted(),
             'isDeletable' => $this->transactionService->isDeletable($transaction),
-            'created' => $transaction->getCreated()->format('Y-m-d H:i:s')
+            'created' => $transaction->getCreated()->format('Y-m-d H:i:s'),
+            'paidByTag' => $transaction->getPaidByTag()
         ];
     }
 

@@ -57,6 +57,10 @@ class UserRepository extends ServiceEntityRepository {
         return $this->findByName($identifier);
     }
 
+    function findByTagId($tagId): ?User {
+        return $this->findOneBy(['tag_id' => $tagId]);
+    }
+
     function findByName(string $name): ?User {
         return $this->findOneBy(['name' => $name]);
     }
