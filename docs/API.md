@@ -21,7 +21,8 @@ Note: This response is Pageable. See #Pagination
       "email": "foo@bar.de",
       "balance": 233,
       "created": "2018-08-17 16:20:57",
-      "updated": "2018-08-17 16:22:41"
+      "updated": "2018-08-17 16:22:41",
+      "tagId": "a****f"
     },
     { }, { }, { }
   ]
@@ -39,7 +40,8 @@ Create a new user
 ```json
 {
   "name": "Username",
-  "email": "foo@bar.de"
+  "email": "foo@bar.de",
+  "tagId": "a43cdf"
 }
 ```
 
@@ -49,6 +51,7 @@ Create a new user
 |---------|-------------|-------------------------------|
 | name    | string      | username                      |
 | email   | string      | e-mail address (optional )    |
+| tagId   | string      | RFID Tag ID (optional )       |
 
 #### Response
 
@@ -104,7 +107,8 @@ Note: You can access this resource using the `id` or `name` as userId. This resp
         "email": "foo@bar.de",
         "balance": 233,
         "created": "2018-08-17 16:20:57",
-        "updated": "2018-08-17 16:22:41"
+        "updated": "2018-08-17 16:22:41",
+        "tagId": "a****f"
       },
       "article": null,
       "recipient": null,
@@ -113,7 +117,8 @@ Note: You can access this resource using the `id` or `name` as userId. This resp
       "amount": 33,
       "deleted": false,
       "isDeletable": true,
-      "created": "2018-08-17 16:22:41"
+      "created": "2018-08-17 16:22:41",
+      "paidByTag": true
     },
     { }, { }, { }
   ]
@@ -156,7 +161,8 @@ Access a specific transactions
     "amount": 33,
     "deleted": false,
     "isDeletable": true,
-    "created": "2018-08-17 16:22:41"
+    "created": "2018-08-17 16:22:41",
+    "paidByTag": true
   }
 }
 ```
@@ -189,7 +195,8 @@ Deletes a specific transaction
       "email": "foo@bar.de",
       "balance": 233,
       "created": "2018-08-17 16:20:57",
-      "updated": "2018-08-17 16:22:41"
+      "updated": "2018-08-17 16:22:41",
+      "tagId": "a****f"
     },
     "article": null,
     "recipient": null,
@@ -198,7 +205,8 @@ Deletes a specific transaction
     "amount": 33,
     "deleted": true,
     "isDeletable": false,
-    "created": "2018-08-17 16:22:41"
+    "created": "2018-08-17 16:22:41",
+    "paidByTag": true
   }
 }
 ```
@@ -226,6 +234,7 @@ Updates user
 {
   "name": "Username",
   "email": "foo@bar.de",
+  "tagId": "a****f",
   "active": false
 }
 ```
@@ -236,7 +245,8 @@ Updates user
 |---------|-------------|-------------------------------|
 | name    | string      | username                      |
 | email   | string      | e-mail address (optional)     |
-| active  | boolean     | active/inactive               |
+| tagId   | string      | RFID Tag ID (optional )       |
+| active  | bool        | active/inactive               |
 
 #### Response
 
@@ -265,7 +275,8 @@ Note: You can access this resource using the `id` or `name` as userId
   "quantity": 1,
   "articleId": 1,
   "recipientId": 2,
-  "comment": "Foobar!"
+  "comment": "Foobar!",
+  "paidByTag": true
 }
 ```
 
@@ -276,6 +287,7 @@ Note: You can access this resource using the `id` or `name` as userId
 | articleId   | integer  | id of an article (optional)                         |
 | recipientId | integer  | userId of recipient (optional)                      |
 | comment     | string   | comment (optional)                                  |
+| paidByTag   | bool     | if RFID tag was used (optional, default false)      |
 
 If an `articleId` is provided, the `amount` parameter overwrites the article amount.
 `quantity` is only used if an `articleId` is provided - otherwise ignored.
@@ -309,7 +321,8 @@ Search users by name
       "email": "foo@bar.de",
       "balance": 233,
       "created": "2018-08-17 16:20:57",
-      "updated": "2018-08-17 16:22:41"
+      "updated": "2018-08-17 16:22:41",
+      "tagId": "a****f"
     },
     { }, { }, { }
   ]
@@ -509,7 +522,8 @@ With these two parameters, you can page through the result set:
   "email": "foo@bar.de",
   "balance": 233,
   "created": "2018-08-17 16:20:57",
-  "updated": "2018-08-17 16:22:41"
+  "updated": "2018-08-17 16:22:41",
+  "tagId": "a****f"
 }
 ```
 
@@ -517,11 +531,12 @@ With these two parameters, you can page through the result set:
 |---------|----------------|-------------------------------|
 | id      | integer        | user identifier               |
 | name    | string         | username                      |
-| active  | boolean        | If user is deactivated or not |
+| active  | bool           | If user is deactivated or not |
 | email   | string or null | e-mail address (optional )    |
 | balance | integer        | balance in cents              |
 | created | datetime       | datetime of creating          |
 | updated | datetime       | datetime of last transaction  |
+| tagId   | string         | RFID Tag ID (optional )       |
 
 ### Transaction-Object
 
@@ -535,7 +550,8 @@ With these two parameters, you can page through the result set:
     "email": "foo@bar.de",
     "balance": 233,
     "created": "2018-08-17 16:20:57",
-    "updated": "2018-08-17 16:22:41"
+    "updated": "2018-08-17 16:22:41",
+    "tagId": "a****f"
   },
   "quantity": 1,
   "article": null,
@@ -547,13 +563,15 @@ With these two parameters, you can page through the result set:
     "email": "foo@bar.de",
     "balance": 233,
     "created": "2018-08-17 16:20:57",
-    "updated": "2018-08-17 16:22:41"
+    "updated": "2018-08-17 16:22:41",
+    "tagId": "a****f"
   },
   "comment": null,
   "amount": 33,
   "deleted": false,
   "isDeletable": true,
-  "created": "2018-08-17 16:22:41"
+  "created": "2018-08-17 16:22:41",
+  "paidByTag": false
 }
 ```
 
@@ -570,6 +588,7 @@ With these two parameters, you can page through the result set:
 | deleted      | bool                   | if transaction has been reverted                                         |
 | isDeletable  | bool                   | if transaction can be reverted                                           |
 | created      | datetime               | datetime of creation                                                     |
+| paidByTag    | bool                   | if RFID tag was used (optional, default false)                           |
 
 ### Article-Object
 
@@ -592,7 +611,7 @@ With these two parameters, you can page through the result set:
 | name       | string                 | name of the article                    |
 | barcode    | string                 | barcode                                |
 | amount     | integer                | amount in cents                        |
-| active     | boolean                | active/inactive                        |
+| active     | bool                   | active/inactive                        |
 | usageCount | integer                | usage count in transactions            |
 | precursor  | Article-Object or null | links to the precursor article, if any |
 | created    | datetime               | datetime of creation                   |
